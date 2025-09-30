@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { InputBox } from "./components";
 import useCurrencyInfo from "./hooks/useCurrencyInfo";
+import { MdOutlineSwapVert } from "react-icons/md";
+
 function App() {
   const [amount, setAmount] = useState(1);
   const [from, setFrom] = useState("usd");
@@ -25,7 +27,7 @@ function App() {
   useEffect(() => {
     if (currencyInfo && currencyInfo[to])
       setconvertedAmount(amount * currencyInfo[to]);
-  }, []);
+  }, [amount]);
 
   return (
     <>
@@ -35,13 +37,16 @@ function App() {
           backgroundImage: `url('https://images.pexels.com/photos/3532540/pexels-photo-3532540.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')`,
         }}>
         <div className="w-full">
-          <div className="w-full max-w-md mx-auto border border-gray-60 rounded-lg p-5 backdrop-blur-sm bg-white/30">
+          <div className="md:h-[410px] md:w-[600px] mx-auto border border-gray-60 rounded-lg p-5 pt-0 bg-white/30">
+            <h1 className="text-center mt-3 text-2xl font-semibold">
+              Currency Converter
+            </h1>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 convert();
               }}>
-              <div className="w-full mb-1">
+              <div className="w-full mb-1 mt-8">
                 <InputBox
                   label="From"
                   amount={amount}
@@ -54,9 +59,9 @@ function App() {
               <div className="relative w-full h-0.5">
                 <button
                   type="button"
-                  className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-md bg-blue-600 text-white px-2 py-0.5"
+                  className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-md bg-blue-600 text-white px-2 py-0.5 cursor-pointer"
                   onClick={swap}>
-                  swap
+                  <MdOutlineSwapVert className="h-6 w-7" />
                 </button>
               </div>
               <div className="w-full mt-1 mb-4">
@@ -71,7 +76,7 @@ function App() {
               </div>
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg cursor-pointer">
+                className="w-full bg-black text-white px-4 py-3 rounded-lg cursor-pointer hover:bg-gray-700">
                 Convert {from.toUpperCase()} to {to.toUpperCase()}
               </button>
             </form>
